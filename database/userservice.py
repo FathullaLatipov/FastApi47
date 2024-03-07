@@ -46,3 +46,24 @@ def user_answer_db(user_id, q_id, level, user_answer):
         return True if correctness else False
     else:
         return 'Вопрос не найден'
+
+
+# Увелечения баллов пользователя
+def plus_point_user_db(user_id, correct_answers):
+    db = next(get_db())
+
+    checker = db.query(Result).filter_by(user_id=user_id).first()
+
+    if checker:
+        checker.correct_answers += correct_answers
+    else:
+        new_leader_data = Result(user_id=user_id, correct_answers=correct_answers)
+
+        db.add(new_leader_data)
+        db.commit()
+
+        # Получаем позицию в списке
+        all_leader = db.query(Result.user_id).order_by(Result.correct_answers.desc())
+
+        # Если выйдет ошибка то исправим))
+        return all_leader.index(user_id)
