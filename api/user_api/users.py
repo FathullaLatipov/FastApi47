@@ -21,7 +21,7 @@ async def all_users():
 
 
 @user_router.get('/leaders')
-async def get_leaders(user_id: int, q_id: int, level: str, user_answer: str):
+async def get_leaders(user_id: int, q_id: int, level: str, user_answer: int):
     get_leader = user_answer_db(user_id, q_id, level, user_answer)
     return f'Лидеры {get_leader}'
 

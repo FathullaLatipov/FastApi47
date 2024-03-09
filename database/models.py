@@ -46,7 +46,7 @@ class UserAnswers(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     q_id = Column(Integer, ForeignKey('questions.id'))
     level = Column(String, ForeignKey('users.level'))
-    user_answer = Column(String)
+    user_answer = Column(Integer)
     correctness = Column(Boolean, default=False)
     timer = Column(Time)
 
